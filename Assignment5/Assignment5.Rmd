@@ -9,6 +9,7 @@ library(dplyr)
 ```
 
 ## Question 1 Data Munging
+a
 ```{r}
 df <- read.csv(sep=";","C:\\Users\\bpkim\\OneDrive\\Desktop\\6306DoingDataScience\\Assignment5\\yob2016.txt",header=FALSE)
 names(df) <- c("Name","Sex","Count2016")
@@ -28,6 +29,7 @@ y2016 <- subset(df, Name != "Fionayyy") #and to remove it
 ```
 
 #Question 2 Data Merging
+a
 ```{r}
 y2015 <- read.csv(sep=",","C:\\Users\\bpkim\\OneDrive\\Desktop\\6306DoingDataScience\\Assignment5\\yob2015.txt", header=FALSE)
 names(y2015) <- c("Name","Sex","Count2015")
@@ -39,7 +41,7 @@ tail(y2015,10)
 c
 ```{r}
 final <- merge(y2015,y2016, by=c("Name","Sex"), all=FALSE)
-summary(final)
+summary(final) #to check for NAs
 ```
 
 ##Question 3 Data Summary
@@ -48,7 +50,7 @@ a
 final$Total <- final$Count2015+final$Count2016
 sum(final$Total)
 ```
-The total children over the two years is $7,239,231.
+The total children over the two years is 7,239,231.
 
 b
 ```{r}
@@ -57,5 +59,12 @@ head(final,10) #The top 10 names of 2015 and 2016
 ```
 c
 ```{r}
-head(subset(final, Sex == "F"),10)
+girls10 <- head(subset(final, Sex == "F"),10)
+girls10
 ```
+d
+```{r}
+write.csv(girls10$Name, file = "C:\\Users\\bpkim\\OneDrive\\Desktop\\6306DoingDataScience\\Assignment5\\top10girlnames.csv", row.names = FALSE)
+```
+
+#4. This can be found on Github at: https://github.com/BruceKimbark/SMUMSDSHomework/tree/master/Assignment5.
