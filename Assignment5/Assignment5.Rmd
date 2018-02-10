@@ -1,0 +1,61 @@
+---
+title: "Bruce Kimbark Unit 05 Assignment"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+```
+
+## Question 1 Data Munging
+```{r}
+df <- read.csv(sep=";","C:\\Users\\bpkim\\OneDrive\\Desktop\\6306DoingDataScience\\Assignment5\\yob2016.txt",header=FALSE)
+names(df) <- c("Name","Sex","Count2016")
+```
+b
+```{r}
+summary(df)
+str(df)
+```
+c
+```{r}
+grep("yyy$",df$Name,value=TRUE) #to find which name has three y's
+```
+d
+```{r}
+y2016 <- subset(df, Name != "Fionayyy") #and to remove it
+```
+
+#Question 2 Data Merging
+```{r}
+y2015 <- read.csv(sep=",","C:\\Users\\bpkim\\OneDrive\\Desktop\\6306DoingDataScience\\Assignment5\\yob2015.txt", header=FALSE)
+names(y2015) <- c("Name","Sex","Count2015")
+```
+b - All of the last ten names have an exact count of 5. That seems very unlikely. The odds must be near impossible. It brings question to the accuracy of the data.
+```{r}
+tail(y2015,10)
+```
+c
+```{r}
+final <- merge(y2015,y2016, by=c("Name","Sex"), all=FALSE)
+summary(final)
+```
+
+##Question 3 Data Summary
+a
+```{r}
+final$Total <- final$Count2015+final$Count2016
+sum(final$Total)
+```
+The total children over the two years is $7,239,231.
+
+b
+```{r}
+final <- arrange(final,desc(Total))
+head(final,10) #The top 10 names of 2015 and 2016
+```
+c
+```{r}
+head(subset(final, Sex == "F"),10)
+```
